@@ -1,4 +1,5 @@
 import os
+import random 
 from flask import Flask, render_template, jsonify, request
 
 app = Flask(__name__)
@@ -9,14 +10,30 @@ ITEMS = [
     {'id': 'pearl', 'name': 'Moça com Brinco', 'weight': 3, 'value': 50, 'img': 'pearl.jpg'},
     {'id': 'scream', 'name': 'O Grito', 'weight': 6, 'value': 70, 'img': 'scream.jpg'},
     {'id': 'abaporu', 'name': 'Abaporu', 'weight': 15, 'value': 85, 'img': 'abaporu.jpg'},
-    {'id': 'sunflower', 'name': 'Girassóis', 'weight': 5, 'value': 60, 'img': 'girassois.jpg'}, 
-    {'id': 'bridge', 'name': 'Ponte sobre uma lagoa', 'weight': 20, 'value': 40, 'img': 'ponte.jpg'}
+    {'id': 'sunflower', 'name': 'Girassóis', 'weight': 5, 'value': 60, 'img': 'girassois.png'}, 
+    {'id': 'bridge', 'name': 'Ponte sobre uma lagoa', 'weight': 20, 'value': 40, 'img': 'ponte.png'}
 ]
 
 @app.route('/')
 def index():
     """Renderiza a página inicial enviando a lista de itens disponíveis."""
     return render_template('index.html', items=ITEMS)
+
+@app.route('/randomize', methods=['POST'])
+def randomize_weights():
+    """Sorteia novos pesos baseados no tipo do quadro."""
+    for item in ITEMS:
+        if item['id'] in ['pearl', 'scream', 'sunflower']:
+            # quadros menores ou mais leves: 2kg a 8kg
+            item['weight'] = random.randint(2, 8)
+        elif item['id'] == 'monalisa':
+            # quadro pequeno e pesado: 8kg a 15kg
+            item['weight'] = random.randint(8, 15)
+        else:
+            # quadros grandes: 15kg a 30kg
+            item['weight'] = random.randint(15, 30)
+            
+    return jsonify(ITEMS)
 
 # algoritmo da mochila
 def solve_knapsack(capacity, items):
