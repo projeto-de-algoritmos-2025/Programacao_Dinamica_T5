@@ -66,4 +66,5 @@ Após iniciar o servidor e acessar a aplicação no navegador:
 <img width="1605" height="927" alt="image" src="https://github.com/user-attachments/assets/e2577894-5d89-42f0-b5f6-002d1b9a6c22" /></div>
 
 # Gravação
-[Link da gravação](https://youtu.be/sGqVQ1m-Dfk)
+[Link da gravação](https://youtu.be/5Rv5MaEOafA)
+
